@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kathaDragon | Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF6B35; /* Saffron Orange */
+            --bg-white: #FFFFFF;
+            --bg-light: #F8F9FA;
+            --text-dark: #2D3436;
+            --text-light: #636E72;
+            --border: #E0E0E0;
+            --shadow: 0 2px 12px rgba(0,0,0,0.08);
+            --radius: 12px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            padding-bottom: 80px;
+        }
+        
+        .container { max-width: 500px; margin: 0 auto; }
+
+        /* Profile Header */
+        .profile-header { padding: 25px 20px 15px; border-bottom: 1px solid var(--border); }
+        .profile-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .profile-info { display: flex; align-items: center; gap: 15px; }
+        .profile-pic { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary); }
+        .profile-stats { display: flex; justify-content: space-around; text-align: center; margin: 20px 0; }
+        .stat-number { font-size: 18px; font-weight: 700; color: var(--primary); }
+        .stat-label { font-size: 13px; color: var(--text-light); }
+        .profile-bio { margin: 10px 0; font-size: 14px; }
+        .action-buttons { display: flex; gap: 10px; margin-top: 20px; }
+        .btn { flex: 1; padding: 12px 0; border-radius: var(--radius); font-weight: 600; font-size: 14px; cursor: pointer; border: 1px solid var(--primary); }
+        .btn-primary { background-color: var(--primary); color: white; }
+        .btn-outline { background-color: transparent; color: var(--primary); }
+
+        /* Tabs */
+        .tabs { display: flex; border-bottom: 1px solid var(--border); background-color: var(--bg-white); position: sticky; top: 0; z-index: 10; }
+        .tab { flex: 1; text-align: center; padding: 15px 0; font-weight: 500; color: var(--text-light); position: relative; cursor: pointer; }
+        .tab.active { color: var(--primary); }
+        .tab.active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background-color: var(--primary); }
+
+        /* Content Sections */
+        .content-section { padding: 20px; display: none; }
+        .content-section.active { display: block; }
+        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .stat-card { background-color: var(--bg-light); border-radius: var(--radius); padding: 20px 15px; text-align: center; border: 1px solid var(--border); }
+        .stat-card i { font-size: 24px; color: var(--primary); margin-bottom: 10px; }
+        .stat-card h3 { font-size: 22px; margin-bottom: 5px; }
+        .stories-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .story-cover { aspect-ratio: 2/3; border-radius: 8px; overflow: hidden; background-color: #f0f0f0; }
+        .story-cover img { width: 100%; height: 100%; object-fit: cover; }
+        
+        /* Universal Bottom Nav */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg-white); display: flex; justify-content: space-around; align-items: center; padding: 0.75rem 0; border-top: 1px solid var(--border); z-index: 100; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-light); text-decoration: none; font-size: 0.75rem; font-weight: 500; }
+        .nav-item.active { color: var(--primary); }
+        .nav-item i { font-size: 1.5rem; margin-bottom: 4px; }
+        .create-fab { width: 60px; height: 60px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.8rem; border: 4px solid var(--bg-white); transform: translateY(-20px); box-shadow: var(--shadow); text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="profile-header">
+            <div class="profile-top">
+                <div class="profile-info">
+                    <img src="https://i.pravatar.cc/150?img=32" alt="Profile Picture" class="profile-pic">
+                    <div>
+                        <h1>मराठीकथाकार</h1>
+                        <span>पुणे, महाराष्ट्र</span>
+                    </div>
+                </div>
+                <button class="btn-icon" style="border:none;background:none;font-size:1.2rem;"><i class="fas fa-cog"></i></button>
+            </div>
+            <div class="profile-stats">
+                <div class="stat"><div class="stat-number">१,२४७</div><div class="stat-label">अनुयायी</div></div>
+                <div class="stat"><div class="stat-number">८९२</div><div class="stat-label">अनुसरण</div></div>
+                <div class="stat"><div class="stat-number">३४</div><div class="stat-label">कथा</div></div>
+            </div>
+            <p class="profile-bio">मराठी कथा लेखक आणि कवी | सांस्कृतिक कथा आणि लोककथा विशेष.</p>
+            <div class="action-buttons">
+                <button class="btn btn-outline">प्रोफाइल संपादित करा</button>
+                <button class="btn btn-primary">सामायिक करा</button>
+            </div>
+        </header>
+        
+        <div class="tabs">
+            <div class="tab active" data-tab="library">कथासंग्रह</div>
+            <div class="tab" data-tab="stats">सांख्यिकी</div>
+        </div>
+        
+        <section class="content-section active" id="library">
+            <div class="stories-grid">
+                <div class="story-cover"><img src="https://images.unsplash.com/photo-1584824486537-46a87b4c29a8?w=150" alt="कथा १"></div>
+                <div class="story-cover"><img src="https://images.unsplash.com/photo-1550684376-efcbd6e3f031?w=150" alt="कथा २"></div>
+                <div class="story-cover"><img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=150" alt="कथा ३"></div>
+            </div>
+        </section>
+
+        <section class="content-section" id="stats">
+            <div class="stats-grid">
+                <div class="stat-card"><i class="fas fa-book-open"></i><h3>४७</h3><p>या वर्षी वाचलेल्या कथा</p></div>
+                <div class="stat-card"><i class="fas fa-fire"></i><h3>१२४</h3><p>सातत्य (दिवस)</p></div>
+            </div>
+        </section>
+    </div>
+    
+    <nav class="bottom-nav">
+        <a href="feed.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span class="nav-label" data-lang-mar="मुखपृष्ठ" data-lang-min="Home">मुखपृष्ठ</span>
+        </a>
+        <a href="discover.html" class="nav-item">
+            <i class="fas fa-compass"></i>
+            <span class="nav-label" data-lang-mar="शोधा" data-lang-min="Discover">शोधा</span>
+        </a>
+        <a href="create.html" class="create-fab"><i class="fas fa-plus"></i></a>
+        <a href="community.html" class="nav-item">
+            <i class="fas fa-users"></i>
+            <span class="nav-label" data-lang-mar="समुदाय" data-lang-min="Community">समुदाय</span>
+        </a>
+        <a href="library.html" class="nav-item">
+            <i class="fas fa-book-bookmark"></i>
+            <span class="nav-label" data-lang-mar="ग्रंथालय" data-lang-min="Library">ग्रंथालय</span>
+        </a>
+    </nav>
+    <script>
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

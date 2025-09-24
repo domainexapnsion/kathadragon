@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kathaDragon | Library</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF6B35; /* Saffron Orange */
+            --bg-white: #FFFFFF;
+            --bg-light: #F8F9FA;
+            --text-dark: #2D3436;
+            --text-light: #636E72;
+            --border: #E0E0E0;
+            --shadow: 0 2px 12px rgba(0,0,0,0.08);
+            --radius: 12px;
+            --success: #2ecc71;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            padding-top: 70px;
+            padding-bottom: 80px;
+        }
+
+        /* Universal Header & Nav */
+        .top-bar { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); z-index: 100; padding: 1rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        .header-actions { display: flex; align-items: center; gap: 1rem; }
+        .lang-toggle { font-weight: 600; color: var(--text-light); cursor: pointer; font-size: 14px; }
+        .profile-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; cursor: pointer; text-decoration: none; border: 2px solid white; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg-white); display: flex; justify-content: space-around; align-items: center; padding: 0.75rem 0; border-top: 1px solid var(--border); z-index: 100; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-light); text-decoration: none; font-size: 0.75rem; font-weight: 500; }
+        .nav-item.active { color: var(--primary); }
+        .nav-item i { font-size: 1.5rem; margin-bottom: 4px; }
+        .create-fab { width: 60px; height: 60px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.8rem; border: 4px solid var(--bg-white); transform: translateY(-20px); box-shadow: var(--shadow); text-decoration: none; }
+        
+        /* Library Page Styles */
+        main { max-width: 600px; margin: 0 auto; padding: 1rem; }
+        .page-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 1.5rem; }
+        
+        .library-tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 1.5rem; }
+        .tab { flex: 1; text-align: center; padding: 1rem 0; font-weight: 500; color: var(--text-light); cursor: pointer; position: relative; }
+        .tab.active { color: var(--primary); }
+        .tab.active::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 2px; background: var(--primary); }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        .book-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; }
+        .book-card { background: var(--bg-white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border); }
+        .book-cover { height: 200px; background-color: #ddd; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: var(--primary); }
+        .book-info { padding: 15px; }
+        .book-title { font-weight: bold; margin-bottom: 5px; }
+        .book-author { color: #666; font-size: 0.9rem; margin-bottom: 10px; }
+        .progress-bar { height: 5px; background-color: #e0e0e0; border-radius: 3px; overflow: hidden; }
+        .progress-fill { height: 100%; background-color: var(--success); }
+    </style>
+</head>
+<body>
+
+    <header class="top-bar">
+        <h1 class="logo">kathaDragon</h1>
+        <div class="header-actions">
+            <div class="lang-toggle" id="lang-toggle-btn">मराठी</div>
+            <a href="profile.html" class="profile-btn">U</a>
+        </div>
+    </header>
+    
+    <main>
+        <h1 class="page-title">माझे ग्रंथालय</h1>
+
+        <div class="library-tabs">
+            <div class="tab active" data-tab="library">ग्रंथालय</div>
+            <div class="tab" data-tab="bookmarks">बुकमार्क्स</div>
+            <div class="tab" data-tab="history">इतिहास</div>
+        </div>
+
+        <div id="library" class="tab-content active">
+            <div class="book-grid" id="library-grid"></div>
+        </div>
+        <div id="bookmarks" class="tab-content">
+             <div class="book-grid" id="bookmarks-grid"></div>
+        </div>
+        <div id="history" class="tab-content">
+             <div class="book-grid" id="history-grid"></div>
+        </div>
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="feed.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span class="nav-label" data-lang-mar="मुखपृष्ठ" data-lang-min="Home">मुखपृष्ठ</span>
+        </a>
+        <a href="discover.html" class="nav-item">
+            <i class="fas fa-compass"></i>
+            <span class="nav-label" data-lang-mar="शोधा" data-lang-min="Discover">शोधा</span>
+        </a>
+        <a href="create.html" class="create-fab"><i class="fas fa-plus"></i></a>
+        <a href="community.html" class="nav-item">
+            <i class="fas fa-users"></i>
+            <span class="nav-label" data-lang-mar="समुदाय" data-lang-min="Community">समुदाय</span>
+        </a>
+        <a href="library.html" class="nav-item active">
+            <i class="fas fa-book-bookmark"></i>
+            <span class="nav-label" data-lang-mar="ग्रंथालय" data-lang-min="Library">ग्रंथालय</span>
+        </a>
+    </nav>
+    
+    <script>
+        const books = [
+            { id: 1, title: "मध्यरात्रीची निवड", author: "प्रिया पाटील", cover: "🌙", progress: 75, bookmarked: true, lastRead: new Date() },
+            { id: 2, title: "मुंबई लोकल प्रेम", author: "अमित शर्मा", cover: "🚂", progress: 40, bookmarked: false, lastRead: new Date(Date.now() - 86400000) },
+            { id: 3, title: "गणपतीचे रहस्य", author: "सुनीता देशमुख", cover: "🙏", progress: 100, bookmarked: true, lastRead: new Date(Date.now() - 172800000) }
+        ];
+
+        function createBookElement(book) {
+            return `
+                <div class="book-card">
+                    <div class="book-cover">${book.cover}</div>
+                    <div class="book-info">
+                        <div class="book-title">${book.title}</div>
+                        <div class="book-author">${book.author}</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${book.progress}%"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function renderLibrary() {
+            document.getElementById('library-grid').innerHTML = books.map(createBookElement).join('');
+            document.getElementById('bookmarks-grid').innerHTML = books.filter(b => b.bookmarked).map(createBookElement).join('');
+            document.getElementById('history-grid').innerHTML = [...books].sort((a,b) => b.lastRead - a.lastRead).map(createBookElement).join('');
+        }
+
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Language Toggle Logic
+        let currentLanguage = 'mar';
+        const langToggleBtn = document.getElementById('lang-toggle-btn');
+        langToggleBtn.addEventListener('click', () => {
+            currentLanguage = (currentLanguage === 'mar') ? 'min' : 'mar';
+            langToggleBtn.textContent = (currentLanguage === 'mar') ? 'English' : 'मराठी';
+            document.querySelectorAll('[data-lang-mar]').forEach(el => {
+                el.textContent = el.dataset[currentLanguage === 'mar' ? 'langMar' : 'langMin'];
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', renderLibrary);
+    </script>
+</body>
+</html>

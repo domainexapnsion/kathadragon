@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kathaDragon | Create</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF6B35; /* Saffron Orange */
+            --bg-white: #FFFFFF;
+            --bg-light: #F8F9FA;
+            --text-dark: #2D3436;
+            --text-light: #636E72;
+            --border: #E0E0E0;
+            --shadow: 0 2px 12px rgba(0,0,0,0.08);
+            --radius: 12px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            padding-top: 70px;
+            padding-bottom: 80px;
+        }
+
+        .app-container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Universal Header */
+        .top-bar { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); z-index: 100; padding: 1rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        .header-actions { display: flex; align-items: center; gap: 1rem; }
+        .lang-toggle { font-weight: 600; color: var(--text-light); cursor: pointer; font-size: 14px; }
+        .profile-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; cursor: pointer; text-decoration: none; border: 2px solid white; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+
+        /* Universal Bottom Nav */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg-white); display: flex; justify-content: space-around; align-items: center; padding: 0.75rem 0; border-top: 1px solid var(--border); z-index: 100; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-light); text-decoration: none; font-size: 0.75rem; font-weight: 500; }
+        .nav-item.active { color: var(--primary); }
+        .nav-item i { font-size: 1.5rem; margin-bottom: 4px; }
+        .create-fab { width: 60px; height: 60px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.8rem; border: 4px solid var(--bg-white); transform: translateY(-20px); box-shadow: var(--shadow); text-decoration: none; }
+        
+        /* Create Page Styles */
+        .screen { display: none; padding: 1rem; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .screen.active { display: block; }
+        .screen-title { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+        .screen-subtitle { color: var(--text-light); margin-bottom: 24px; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-label { display: block; margin-bottom: 8px; font-weight: 600; }
+        .form-input, .form-textarea { width: 100%; padding: 14px; border: 1.5px solid var(--border); border-radius: var(--radius); font-size: 15px; transition: all 0.2s ease; background: var(--bg-white); }
+        .form-input:focus, .form-textarea:focus { outline: none; border-color: var(--primary); }
+        
+        .btn { background: var(--primary); color: white; border: none; border-radius: var(--radius); padding: 12px 20px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+        .btn:disabled { background: #FFD9B3; cursor: not-allowed; }
+
+        .creator-tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 1rem; }
+        .creator-tab { flex: 1; text-align: center; padding: 1rem 0; font-weight: 500; color: var(--text-light); position: relative; cursor: pointer; }
+        .creator-tab.active { color: var(--primary); }
+        .creator-tab.active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: var(--primary); }
+    </style>
+</head>
+<body>
+
+    <header class="top-bar">
+        <h1 class="logo">kathaDragon</h1>
+        <div class="header-actions">
+            <div class="lang-toggle" id="lang-toggle-btn">मराठी</div>
+            <a href="profile.html" class="profile-btn">U</a>
+        </div>
+    </header>
+
+    <div class="app-container">
+        <div class="creator-tabs">
+            <div class="creator-tab active" data-screen="setup-screen">Setup</div>
+            <div class="creator-tab" data-screen="editor-screen">Write</div>
+            <div class="creator-tab" data-screen="publish-screen">Publish</div>
+        </div>
+
+        <div class="screen active" id="setup-screen">
+            <h1 class="screen-title">तुमची कथा तयार करा</h1>
+            <p class="screen-subtitle">एक आकर्षक शीर्षक आणि मुखपृष्ठ निवडा</p>
+            <div class="form-group">
+                <label class="form-label" for="story-title">कथेचे शीर्षक</label>
+                <input type="text" id="story-title" class="form-input" placeholder="तुमच्या कथेचे शीर्षक येथे लिहा">
+            </div>
+            <div class="form-group">
+                <label class="form-label">मुखपृष्ठ</label>
+                <input type="file" class="form-input">
+            </div>
+            <button class="btn" id="start-writing-btn" disabled>
+                <i class="fas fa-arrow-right"></i> लेखन सुरू करा
+            </button>
+        </div>
+
+        <div class="screen" id="editor-screen">
+            <h1 class="screen-title">तुमची कथा लिहा</h1>
+            <p class="screen-subtitle">अध्याय जोडा आणि वाचकांना पर्याय द्या</p>
+            <div class="form-group">
+                <label class="form-label">पहिला अध्याय</label>
+                <textarea class="form-textarea" placeholder="तुमची कथा येथे लिहा..."></textarea>
+            </div>
+             <button class="btn">
+                <i class="fas fa-plus"></i> नवीन अध्याय जोडा
+            </button>
+        </div>
+
+        <div class="screen" id="publish-screen">
+            <div style="text-align: center; padding: 2rem 0;">
+                <i class="fas fa-check-circle" style="font-size: 80px; color: var(--primary); margin-bottom: 20px;"></i>
+                <h1 class="screen-title">कथा प्रकाशित झाली!</h1>
+                <p class="screen-subtitle">तुमची कथा आता वाचकांसाठी उपलब्ध आहे.</p>
+                <button class="btn"><i class="fas fa-share-alt"></i> कथा सामायिक करा</button>
+            </div>
+        </div>
+    </div>
+    
+    <nav class="bottom-nav">
+        <a href="feed.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span class="nav-label" data-lang-mar="मुखपृष्ठ" data-lang-min="Home">मुखपृष्ठ</span>
+        </a>
+        <a href="discover.html" class="nav-item">
+            <i class="fas fa-compass"></i>
+            <span class="nav-label" data-lang-mar="शोधा" data-lang-min="Discover">शोधा</span>
+        </a>
+        <a href="create.html" class="create-fab"><i class="fas fa-plus"></i></a>
+        <a href="community.html" class="nav-item">
+            <i class="fas fa-users"></i>
+            <span class="nav-label" data-lang-mar="समुदाय" data-lang-min="Community">समुदाय</span>
+        </a>
+        <a href="library.html" class="nav-item">
+            <i class="fas fa-book-bookmark"></i>
+            <span class="nav-label" data-lang-mar="ग्रंथालय" data-lang-min="Library">ग्रंथालय</span>
+        </a>
+    </nav>
+    <script>
+        // Creator Screen Logic
+        document.querySelectorAll('.creator-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.creator-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.screen).classList.add('active');
+            });
+        });
+        
+        const storyTitleInput = document.getElementById('story-title');
+        const startWritingBtn = document.getElementById('start-writing-btn');
+        storyTitleInput.addEventListener('input', () => {
+            startWritingBtn.disabled = !storyTitleInput.value.trim();
+        });
+        
+        startWritingBtn.addEventListener('click', () => {
+            document.querySelector('.creator-tab[data-screen="setup-screen"]').classList.remove('active');
+            document.querySelector('.creator-tab[data-screen="editor-screen"]').classList.add('active');
+            document.getElementById('setup-screen').classList.remove('active');
+            document.getElementById('editor-screen').classList.add('active');
+        });
+
+        // Language Toggle Logic
+        let currentLanguage = 'mar'; // 'mar' for Marathi, 'min' for Minglish
+        const langToggleBtn = document.getElementById('lang-toggle-btn');
+        langToggleBtn.addEventListener('click', () => {
+            currentLanguage = (currentLanguage === 'mar') ? 'min' : 'mar';
+            langToggleBtn.textContent = (currentLanguage === 'mar') ? 'English' : 'मराठी';
+            document.querySelectorAll('[data-lang-mar]').forEach(el => {
+                el.textContent = el.dataset[currentLanguage === 'mar' ? 'langMar' : 'langMin'];
+            });
+        });
+    </script>
+</body>
+</html>
